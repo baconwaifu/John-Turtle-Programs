@@ -6,37 +6,49 @@ Programs i`m making:
 
 John Strip Mining Turtle(100% Done)
 
-John Turtle Tree Farm (80% done still working on it)
+John Turtle Tree Farm (100% done but it need better instrution)
 
-John Excavation Turtle Program (100% done)
+John Excavation Turtle Program Rewriten (100% done) old one is delete beta has redstone add-on
 
-John Cave Builder (100% done) I will not update this one
+John Turtle Tunnel (100% done) still post on computercraft
 
-John Turtle Tunnel (10% done i just start with that program)
+John Bridge Making Program(100% Done)
 
 Pastebin Links
 
 John Strip Mining Turtle[Working]
 http://pastebin.com/cWwJ0FYW
 
-John Excavation Turtle Program[Fully Working]
+John Excavation Turtle Program[Beta]
 http://pastebin.com/rR9JXSvy
+John Excavation Turtle Program[New]
+http://pastebin.com/w8F028Tp
 
-John`s Turtle Tree Farm[Work In Process]
+John`s Turtle Tree Farm[80% im bit stuck at bugs]
 http://pastebin.com/QWuaMugj
 
-John Cave Builder[Working Buggy]
-http://pastebin.com/iKkp3xtW
+john Turtle Tunnel[Need Testing]
+http://pastebin.com/1HzZLhL9
 
-john Turtle Tunnel[Work in Process]
+John Bridge Making Program[Fully Working]
+http://pastebin.com/4L71hyca
+
+Dont Using This link i`m using this to test program and improve before release to public
+http://pastebin.com/tJQDbj2r
 
 Computercraft Links
 
 John Excavation Turtle Program[Fully Working]
-http://www.computercraft.info/forums2/index.php?/topic/17667-john-excavation-turtle-program/
+http://www.computercraft.info/forums2/index.php?/topic/17667-john-excavation-turtle-program-reworked/
 
 John Strip Mining Turtle[Working]
-http://www.computercraft.info/forums2/index.php?/topic/15292-version-200-john-strip-mining-turtle/page__p__145639#entry145639
+http://www.computercraft.info/forums2/index.php?/topic/15292-213-john-strip-mining-turtle/
 
-Note:
-8/8/2014 Or sooner I will Retest Most My Turtle Programs till then there bit buggy
+John Bridge Making Program[Fully Working]
+http://www.computercraft.info/forums2/index.php?/topic/21402-john-bridge-making-program/
+
+Note: Some Program are buggy im still here but have little to work on them and im now using IntelliJ IDEA With Lua Pluging.
+
+P.s Since Now im studying Computer Science i think i rewrite all my turtle program begin aging but i keep old as backup just in case
+
+P.P.S Im Now Go to used LUA Editor for computercraft not old way like using Intellij IDEA with Lua Pluging

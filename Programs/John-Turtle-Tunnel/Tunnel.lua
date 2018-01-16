@@ -1,132 +1,145 @@
--- This version
--- 0.01
--- Changelogs
--- 0.01 First Coding
+-- This Version
+-- 0.03
+-- ChangeLogs
+-- 0.01 - New Programed
+-- 0.02 - Allmost Done Not Yet Tested but it should work of looks
+-- 0.03 - bug fix and chest code add
 
--- Local
-local Distance = 0 -- How Far
-local DistanceCounter = 0
-local BDistance = 0 -- Back Distance
-local Chest = turtle.getItemCount(1)
-local Fuel = turtle.getItemCount(2)
-local NoNeedFuel = 0
-local Error = 0
+-- Locals Variables
+local noFuelNeeded = 0 -- Check if turtle is using no fuel config
+local itemFuel = turtle.getItemCount(1) -- Fuel Slot 1
+local itemFuel1 = turtle.getItemCount(2) -- Fuel Slot 2
+local chest = turtle.getItemCount(3) -- Chest Slot 3
+local distance = 0 -- Distance will dig
+local distanceCount = 0 -- Count the distance
+local missingFuel = 0 -- If there is missing fuel this will be 1
+local missingChest = 0 -- If there is missing chest this will be 1
 
--- Starting Part
-function Check()
-	if Chest == 0 then
-		print("No chest in Turtle")
-		print("Put chest in slot 1")
-		Error = 1
-	else
-		print("turtle has chest")
+-- Checking On Items
+local function checking()
+	if noFuelNeeded == 0 then
+		if itemFuel == 0 then
+			missingFuel = 1
+		else
+			missingFuel = 0
+		end
 	end
-	if Fuel == 0 then
-		print("No Chest in Turtle")
-		print("Put Fuel in Slot 2")
-		Error = 1
+	if chest == 0 then
+		missingChest = 1
 	else
-		print("Turtle Has Fuel")
+		missingChest = 0
 	end
-	if Error == 1 then
-		print("Items are missing please try again")
-		print("turtle will recheck in 15 sec")
-		sleep(15)
-		recheck()
-	else
-		Mine()
+	if missingFuel == 1 then
+		print("Missing Fuel in Slot 1")
+	end
+	if missingChest == 1 then
+		print("Missing Chest in Slot 3")
 	end
 end
 
--- Recheck Code
-function recheck()
-	Chest = turtle.getItemCount(1)
-	Fuel = turtle.getItemCount(2)
-	Error = 0
-	Check()
+local function recheck()
+	itemFuel = turtle.getItemCount(1)
+	itemFuel1 = turtle.getItemCount(2)
+	chest = turtle.getItemCount(3)
 end
 
--- Mine Part
-function Mine()
-	repeat
-		if turtle.detect() then
-			turtle.dig()
-		end
-		if turtle.forward then -- if gravel block it Distance wont mixup
-			BDistance = BDistance + 1
-			DistanceCounter = DistanceCounter + 1
-		end
-		if turtle.detectUp() then
-			turtle.digUp()
-		end
-		turtle.turnLeft()
-		if turtle.detect() then
-		  turtle.dig()
-		end
-		turtle.up()
-		if turtle.detect() then
-			turtle.dig()
-		end
-		if turtle.detectUp() then
-		  turtle.digUp()
-		end
-		turtle.up()
-		if turtle.detect() then
-      turtle.dig()
-    end
-    turtle.turnLeft()
-    turtle.turnLeft()
-    if turtle.detect() then
-		  turtle.dig()
-		end
-		turtle.down()
-		if turtle.detect() then
-		  turtle.dig()
-		end
-		turtle.down()
-		if turtle.detect() then
-		  turtle.dig()
-		end
-		turtle.turnLeft()
-		if turtle.getItemCount(16)>0 then -- If slot 16 in turtle has item slot 4 to 16 will go to chest
-		  turtle.digDown()
-			turtle.select(1)
+local function reFuel()
+	if noFuelNeeded == 0 then
+		repeat
+			if turtle.getFuelLevel() < 120 then
+				if itemFuel > 1 then
+					turtle.select(1)
+					turtle.refuel(1)
+					itemFuel = itemFuel - 1
+					turtle.select(4)
+				elseif itemFuel1 > 1 then
+					turtle.select(2)
+					turtle.refuel(1)
+					itemFuel1 = itemFuel1 - 1
+					turtle.select(4)
+				else
+					print("out of fuel")
+					os.shutdown()
+				end
+			end
+		until turtle.getFuelLevel() >= 120
+	end
+end
+
+local function dig()
+	turtle.dig()
+	turtle.forward()
+	turtle.turnLeft()
+	turtle.dig()
+	turtle.turnRight()
+	turtle.turnRight()
+	turtle.dig()
+	turtle.digUp()
+	turtle.up()
+	turtle.dig()
+	turtle.turnRight()
+	turtle.turnRight()
+	turtle.dig()
+	turtle.digUp()
+	turtle.up()
+	turtle.dig()
+	turtle.turnRight()
+	turtle.turnRight()
+	turtle.dig()
+	turtle.down()
+	turtle.down()
+	turtle.turnLeft()
+end
+
+local function chestDump()
+	if turtle.getItemCount(16)> 0 then -- If slot 16 in turtle has item slot 4 to 16 will go to chest
+		if Chest ~= 0 then
+			turtle.select(3)
+			turtle.digDown()
 			turtle.placeDown()
-			Chest = Chest - 1
-		  for slot = 3, 16 do
-        turtle.select(slot)
-        turtle.dropDown()
-        sleep(1.5) -- Small fix for slow pc because i had people problem with this  
-	    end
-	  end
-	  if NoFuelNeed == 0 then
-      if turtle.getFuelLevel() < 200 then
-        if Fuel > 10 then
-          turtle.select(1)
-          turtle.refuel(10)
-          Fuel = Fuel - 10
-        else
-          print("out of fuel")
-					sleep(300000)
-        end
-      end
+			for slot = 4, 16 do
+				turtle.select(slot)
+				sleep(0.6) -- Small fix for slow pc because i had people problem with this
+				turtle.dropDown()
+			end
+		turtle.select(4)
+		else
+			print("Out Of Chest")
+			os.shutdown()
 		end
-	until DistanceCounter == Distance
+	end
 end
 
--- Gui Part
-print("Hi Welcome To Tunnel Program By John")
-print("This Program 3x3 Tunnel")
-print("Pls Put Chest in Slot 1")
-print("Pls Put Fuel in Slot 2")
-print("How long do you want tunnel")
-input = io.read()
-Distance = tonumber(input)
-if turtle.getFuelLevel() == "unlimited" then 
-  print("your turtle config does need fuel")
-  NoFuelNeed = 1
-elseif turtle.getFuelLevel() < 100 then
-  turtle.select(1)
-  turtle.refuel(2)
+function main()
+	repeat
+		reFuel()
+		dig()
+		distanceCount = distanceCount + 1
+		chestDump()
+	until distance == distanceCount
 end
-Check()
+
+function start()
+	print("Welcome To John Tunnel Program")
+	print("This 3x3 Tunnel Program 4x4 is coming soon after this one is done")
+	print("Please Input Your Fuel In Slot 1 and Slot 2(Optional) and Chest in Slot 3")
+	print("Please Input Your Distance You Want Turtle To Dig")
+	input = io.read()
+	distance = tonumber(input)
+	print("Turtle Will Dig " .. distance .. " Long")
+	if turtle.getFuelLevel() == "unlimited" then -- just check if config of fuel is to unlimited
+	noFuelNeeded = 1
+	end
+	checking()
+	if missingFuel == 1 or missingChest == 1 then
+		repeat
+			print("Please Put In Items That Are Missing")
+			sleep(10)
+			recheck()
+			checking()
+		until missingFuel == 0 and missingChest == 0
+	end
+	main()
+end
+
+start()
